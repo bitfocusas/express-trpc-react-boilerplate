@@ -2,15 +2,25 @@ import * as trpc from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { TRPCError } from "@trpc/server";
 import * as jwt from "jsonwebtoken";
+import logger from "./core/log";
 
 export async function createContext(
 	opts?: trpcExpress.CreateExpressContextOptions
 ) {
 	async function getUserFromHeader() {
-		console.log("wut");
 		if (opts?.req.headers.authorization) {
-			//const user = jwt.decode(opts?.req.headers.authorization.split(" ")[1]);
-			return {};
+			logger.debug("Inbound authorization", opts?.req.headers);
+			let user = null;
+			try {
+				const user = jwt.decode(opts?.req.headers.authorization.split(" ")[1]);
+			} catch (e) {
+				logger.error("JWT Decode error", { e, headers: opts?.req.headers });
+				throw new TRPCError({ code: "PARSE_ERROR" });
+			} finally {
+				return user;
+			}
+		} else {
+			logger.debug("Missing authorization", opts?.req.headers);
 		}
 		return null;
 	}

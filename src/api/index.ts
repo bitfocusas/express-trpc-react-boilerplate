@@ -5,7 +5,6 @@ import express from "express";
 import { TRPCError } from "@trpc/server";
 
 // Controllers
-import ControllerHello from "./controllers/Hello";
 import ControllerTest from "./controllers/Test";
 
 export const api = express();
@@ -20,9 +19,7 @@ const apiRouter = trpc
 	})
 
 	// Endpoints
-	.query("hello", { resolve: ControllerHello, meta: { auth: false } })
-	.query("test", { resolve: ControllerTest, meta: { auth: false } })
-	.mutation("test", { resolve: ControllerTest });
+	.query("test", { resolve: ControllerTest, meta: { auth: true } });
 
 export type API = typeof apiRouter;
 

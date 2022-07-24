@@ -6,7 +6,9 @@ interface Response {
 }
 
 export default async function (req: Express.Request): Promise<Response> {
-	logger.info("Hello world!");
+	logger.info("TestSet");
+
+	test.set("jaja" + Date.now());
 
 	return {
 		payload: test.get(),
