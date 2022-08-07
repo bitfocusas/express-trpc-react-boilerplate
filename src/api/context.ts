@@ -12,9 +12,14 @@ export async function createContext(
 			logger.debug("Inbound authorization", opts?.req.headers);
 			let user = null;
 			try {
-				const user = jwt.decode(opts?.req.headers.authorization.split(" ")[1]);
+				const user = jwt.decode(
+					opts?.req.headers.authorization.split(" ")[1]
+				);
 			} catch (e) {
-				logger.error("JWT Decode error", { e, headers: opts?.req.headers });
+				logger.error("JWT Decode error", {
+					e,
+					headers: opts?.req.headers,
+				});
 				throw new TRPCError({ code: "PARSE_ERROR" });
 			} finally {
 				return user;
