@@ -1,4 +1,4 @@
-class Test {
+class ModelTest {
 	public test: string = "jaja";
 	set(value: string) {
 		this.test = value;
@@ -8,4 +8,4 @@ class Test {
 	}
 }
 
-export default new Test();
+export default new ModelTest();

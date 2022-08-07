@@ -10,9 +10,9 @@
 		"start:prod": "NODE_ENV=production node build/server.js"
 	},
 	"dependencies": {
-		"@trpc/client": "^9.23.6",
+		"@trpc/client": "^9.26.2",
 		"@trpc/react": "^9.26.2",
-		"@trpc/server": "^9.23.6",
+		"@trpc/server": "^9.26.2",
 		"@types/jsonwebtoken": "^8.5.8",
 		"@types/lodash": "^4.14.182",
 		"express": "^4.17.1",
@@ -20,9 +20,10 @@
 		"lodash": "^4.17.21",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
-		"react-query": "^3.39.0",
+		"react-query": "3",
 		"react-router-dom": "^5.1.2",
-		"winston": "^3.8.1"
+		"winston": "^3.8.1",
+		"zod": "^3.17.10"
 	},
 	"devDependencies": {
 		"@testing-library/dom": "^7.29.4",

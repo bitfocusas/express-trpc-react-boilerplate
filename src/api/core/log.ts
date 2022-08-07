@@ -5,7 +5,7 @@ import _ from "lodash";
 import os from "os";
 
 const myFormat = printf(({ level, message, label, timestamp, ...more }) => {
-	let obj = {};
+	let obj: any = {};
 	let num = 0;
 	Object.keys(more).forEach((key) => {
 		num++;

@@ -1,26 +1,13 @@
-import React, { useState } from "react";
-import { createTRPCClient } from "@trpc/client";
-import type { API } from "../api";
+import React from "react";
+import { trpc } from "./utils/trpc";
 
-const client = createTRPCClient<API>({
-	url: "api",
-});
-
-const Home: React.FC<{}> = () => {
-	const [data, setData] = useState<null | { message: string }>(null);
-
-	const handleLoad = () => {
-		client.query("test").then((res) => {
-			setData({ message: res.payload });
-		});
-	};
+export default function Home() {
+	const hello = trpc.useQuery(["test.fubar", { info: "kul" }]);
 
 	return (
-		<>
-			<button onClick={handleLoad}>Load Data</button>
-			{!!data && <pre>Data: {data.message}</pre>}
-		</>
+		<div>
+			lol
+			<p>{hello.data?.greeting}</p>
+		</div>
 	);
-};
-
-export default Home;
+}

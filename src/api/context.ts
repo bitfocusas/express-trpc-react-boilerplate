@@ -40,5 +40,5 @@ export async function createContext(
 export type Context = trpc.inferAsyncReturnType<typeof createContext>;
 
 export interface Meta {
-	auth: boolean;
+	auth?: boolean;
 }
