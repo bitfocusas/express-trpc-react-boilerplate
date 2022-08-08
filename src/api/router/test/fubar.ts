@@ -4,11 +4,7 @@ type Request = {
 	input: { info: string };
 };
 
-type Response = {
-	greeting: string;
-};
-
-export const fubar = {
+export const fubarQuery = {
 	// Meta information
 	meta: {
 		auth: false,
@@ -19,9 +15,15 @@ export const fubar = {
 		info: z.string(),
 	}),
 
-	async resolve({ input }: Request): Promise<Response> {
+	// Response schema
+	output: z.object({
+		greeting: z.string(),
+	}),
+
+	async resolve({ input }: Request) {
 		return {
 			greeting: input.info,
+			meh: "cool",
 		};
 	},
 };

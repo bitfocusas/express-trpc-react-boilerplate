@@ -2,6 +2,7 @@ import * as trpc from "@trpc/server";
 import { TRPCError } from "@trpc/server";
 import { Context, Meta } from "../context";
 import routerTest from "./test";
+import routerUser from "./user";
 
 export const router = trpc
 	.router<Context, Meta>()
@@ -14,6 +15,8 @@ export const router = trpc
 		return next();
 	})
 	// API Routers
+
+	.merge("user.", routerUser)
 	.merge("test.", routerTest);
 
 export type API = typeof router;

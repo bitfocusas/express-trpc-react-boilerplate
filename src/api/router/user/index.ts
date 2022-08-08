@@ -4,11 +4,14 @@ import modelTest from "../../model/test";
 import { Context, Meta } from "../../context";
 import { z } from "zod";
 
-import { fubarQuery } from "./fubar";
+import { authLogin } from "./authLogin";
+import { authRenew } from "./authRenew";
 
 const router = trpc
 	.router<Context, Meta>()
+
 	// Mutations & Queries
-	.query("fubar", fubarQuery);
+	.mutation("auth.login", authLogin)
+	.mutation("auth.renew", authRenew);
 
 export default router;
