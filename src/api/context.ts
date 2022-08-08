@@ -1,11 +1,15 @@
 import * as trpc from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
+import * as trpcNodeHttp from "@trpc/server/adapters/node-http";
 import { TRPCError } from "@trpc/server";
 import * as jwt from "jsonwebtoken";
 import logger from "./core/log";
+import { IncomingMessage, ServerResponse } from 'http';
+import { NodeHTTPCreateContextFnOptions, NodeHTTPCreateContextOption } from "@trpc/server/adapters/node-http";
+import * as ws from 'ws';
 
 export async function createContext(
-	opts?: trpcExpress.CreateExpressContextOptions
+	opts?: NodeHTTPCreateContextFnOptions<IncomingMessage, ws.WebSocket | ServerResponse>
 ) {
 	async function getUserFromHeader() {
 		if (opts?.req.headers.authorization) {
