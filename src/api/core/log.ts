@@ -1,4 +1,3 @@
-import { env } from "process";
 import { createLogger, format, transports } from "winston";
 const { combine, colorize, json, timestamp, label, printf } = format;
 import _ from "lodash";

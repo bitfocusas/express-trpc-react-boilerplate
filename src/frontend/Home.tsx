@@ -1,27 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { trpc } from "./utils/trpc";
 
-export default function Home() {
-	//const hello = trpc.useQuery(["test.fubar", { info: "kul" }]);
-	// This can either be a tuple ['login'] or string 'login'
-
+export default function Login() {
 	const auth = trpc.useMutation(["user.auth.login"]);
 
+	const [username, setUsername] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
 	const handleLogin = async () => {
-		console.log("login");
-		auth.mutate({ username: "william@trippelm.no", password: "warp242" });
+		auth.mutate({ username, password });
 	};
 
+	// Store the jwt for future API queries.
+	useEffect(() => {
+		if (auth.data !== undefined && auth.data !== null) {
+			localStorage.setItem("jwt", auth.data);
+		}
+	}, [auth]);
+
 	return (
-		<div>
-			<h1>Login Form</h1>
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				handleLogin();
+			}}
+		>
+			<input
+				type="email"
+				value={username}
+				placeholder="Email"
+				onChange={(e) => setUsername(e.target.value)}
+			/>
+			<input
+				type="password"
+				value={password}
+				placeholder="Password"
+				onChange={(e) => setPassword(e.target.value)}
+			/>
+
 			<button onClick={handleLogin} disabled={auth.isLoading}>
 				Login
 			</button>
 
-			{auth.data?.jwt}
-
-			{auth.error && <p>Something went wrong! {auth.error.message}</p>}
-		</div>
+			{auth.error && <p>Error</p>}
+		</form>
 	);
 }

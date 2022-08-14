@@ -5,8 +5,6 @@ import { StaticRouterContext } from "react-router";
 import { StaticRouter } from "react-router-dom";
 import { api } from "./api";
 
-import App from "./frontend/App";
-
 let assets: any;
 
 const syncLoadAssets = () => {

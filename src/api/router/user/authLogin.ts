@@ -10,11 +10,6 @@ type LoginRequest = {
 	};
 };
 
-type LoginResponse = {
-	jwt: string | null;
-	success: boolean;
-};
-
 export const authLogin = {
 	// Meta information
 	meta: {
@@ -29,25 +24,19 @@ export const authLogin = {
 			.min(1, "passwords can't be shorter than 8 characters."),
 	}),
 
-	async resolve({ input }: LoginRequest): Promise<LoginResponse> {
+	async resolve({ input }: LoginRequest): Promise<string> {
 		if (
 			input.username === "william@trippelm.no" &&
-			input.password === "admin"
+			input.password === "warp242"
 		) {
-			return {
-				jwt: jwt.sign(
-					{
-						exp: Math.floor(Date.now() / 1000) + JWT_VALID_SECONDS,
-						data: "foobar",
-					},
-					JWT_SECRET
-				),
-				success: true,
-			};
+			return jwt.sign(
+				{
+					exp: Math.floor(Date.now() / 1000) + JWT_VALID_SECONDS,
+					data: "foobar",
+				},
+				JWT_SECRET
+			);
 		}
-		return {
-			jwt: null,
-			success: false,
-		};
+		throw new TRPCError({ code: "UNAUTHORIZED" });
 	},
 };

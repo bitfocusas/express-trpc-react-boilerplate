@@ -2,10 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./utils/trpc";
-import Home from "./Home";
 
-function getAuthCookie() {
-	return "none";
+function getAuthCookie(): string {
+	return localStorage.getItem("jwt") ?? "";
 }
 
 export default function TRPC({ children }: { children: React.ReactNode }) {
